@@ -13,8 +13,11 @@ public class GameManager : MonoBehaviour {
     enum phases { ROUNDSTART, PLACING, ACTION }
     phases currentPhase;
 
-	// Use this for initialization
-	void Start ()
+    public static int Player1Points;
+    public static int Player2Points;
+
+    // Use this for initialization
+    void Start ()
     {
 
         assignGoals();
