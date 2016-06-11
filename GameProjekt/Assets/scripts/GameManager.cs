@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class GameManager : MonoBehaviour {
 
 
@@ -13,15 +14,32 @@ public class GameManager : MonoBehaviour {
     enum phases { ROUNDSTART, PLACING, ACTION }
     phases currentPhase;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 
         assignGoals();
+
         currentPhase = phases.ROUNDSTART;
+        createBall();
+
+        currentPhase = phases.PLACING;
 
 
         // place la balle a 90 et 100 dans les y et 0 a 30 dans les X
+
+    }
+
+    private void createBall()
+    {
+        // TODO create the ball in the borders
+        // y entre 90 et 100 => 95
+        // x 0 a 60
+
+        float xValue = Random.Range(1f, 60f);
+        GameObject ball = Instantiate(Resources.Load("Ball"), new Vector3(xValue, 95f), Quaternion.identity) as GameObject;
+        // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
+        ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
 
     }
 
@@ -81,5 +99,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("MOUSE CLICK AT: " + mousePos.ToString());
         }
 	}
+
+    
 
 }
