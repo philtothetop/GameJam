@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour {
         GameObject ball = Instantiate(Resources.Load("Ball"), new Vector3(xValue, 95f), Quaternion.identity) as GameObject;
         // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
         ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
+        ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         return ball;
 
     }
@@ -118,6 +119,7 @@ public class GameManager : MonoBehaviour {
         if (currentPhase == phases.ACTION && _currentBall != null)
         {
             _currentBall.GetComponent<Rigidbody2D>().gravityScale = 1;
+            _currentBall.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         }
 
         if (_currentBall == null)
