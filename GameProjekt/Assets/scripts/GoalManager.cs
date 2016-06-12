@@ -7,17 +7,14 @@ public class GoalManager : MonoBehaviour {
 	// Use this for initialization
 	
     public void setColor() {
-        foreach (SpriteRenderer borders in GetComponentsInChildren<SpriteRenderer>())
-        {
-            if (player == 1)
-                borders.material.color = Color.blue;
-            else
-                borders.material.color = Color.red;
-        }
+
+        if (player == 1)
+            gameObject.GetComponent<SpriteRenderer>().material.color = Color.blue;
+        else
+            gameObject.GetComponent<SpriteRenderer>().material.color = Color.red;
+        
     }
 
 	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }

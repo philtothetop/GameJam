@@ -8,7 +8,13 @@ namespace Assets.scripts
 {
     public class PointCounter : MonoBehaviour
     {
-        public GoalManager manager;
+        private GoalManager manager;
+
+        void Awake()
+        {
+            manager = GetComponent<GoalManager>();
+        }
+
         void OnTriggerEnter2D(Collider2D col)
         {
             if (manager.player == 1) GameManager.Player1Points++;

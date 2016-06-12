@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour {
     phases currentPhase;
     public static int Player1Points;
     public static int Player2Points;
-    public Text scoreText;
-
+    public Text player1Score;
+    public Text player2Score;
     public PinePicker pick;
 
     // Use this for initialization
@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour {
                     playerTwo++;
                 }
             }
-            goal.GetComponent<GoalManager>().player = player;
-            goal.GetComponent<GoalManager>().setColor();
+            goal.GetComponentInChildren<GoalManager>().player = player;
+            goal.GetComponentInChildren<GoalManager>().setColor();
         }
     }
     
@@ -138,7 +138,10 @@ public class GameManager : MonoBehaviour {
     
     public void updateScore()
     {
-        scoreText.text = "Player 1: " + Player1Points + " | Player 2: " + Player2Points;
+        player1Score.text = "Player 1: " + Player1Points;
+        player1Score.color = Color.blue;
+        player2Score.text = "Player 2: " + Player2Points;
+        player2Score.color = Color.red;
     }
 
 }
