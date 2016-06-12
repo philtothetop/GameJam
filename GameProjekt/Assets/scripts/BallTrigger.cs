@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BallTrigger : MonoBehaviour {
 
-void onTriggerStay2D(Collider2D coll) {
+void OnTriggerStay2D(Collider2D coll) {
         Debug.Log("triggerStay");
     }
 }
