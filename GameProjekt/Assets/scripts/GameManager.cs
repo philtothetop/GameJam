@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
         // y entre 90 et 100 => 95
         // x 0 a 60
 
-        float xValue = Random.Range(1f, 60f);
+        float xValue = Random.Range(1f, 59f);
         GameObject ball = Instantiate(Resources.Load("Ball"), new Vector3(xValue, 95f), Quaternion.identity) as GameObject;
         // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
         ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
