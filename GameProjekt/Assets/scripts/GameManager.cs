@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using Assets.scripts;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,23 +17,20 @@ public class GameManager : MonoBehaviour {
     public static int Player1Points;
     public static int Player2Points;
 
+    public PinePicker pick;
+
     // Use this for initialization
     void Start ()
     {
 
         assignGoals();
-
         currentPhase = phases.ROUNDSTART;
-        createBall();
-
-        currentPhase = phases.PLACING;
-
 
         // place la balle a 90 et 100 dans les y et 0 a 30 dans les X
 
     }
 
-    private void createBall()
+    private GameObject createBall()
     {
         // TODO create the ball in the borders
         // y entre 90 et 100 => 95
@@ -43,7 +40,7 @@ public class GameManager : MonoBehaviour {
         GameObject ball = Instantiate(Resources.Load("Ball"), new Vector3(xValue, 95f), Quaternion.identity) as GameObject;
         // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
         ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
-
+        return ball;
     }
 
     // assigne 6 zones à chaque joueur
@@ -90,16 +87,42 @@ public class GameManager : MonoBehaviour {
 
         Debug.Log("Player 1 : " + playerOne + ", Player 2 : " + playerTwo);
     }
-	
-	// Update is called once per frame
-	void Update () {
-        Vector3 mousePos;
 
-        // Create the 
-        if (currentPhase == phases.PLACING && Input.GetKeyDown(KeyCode.Mouse0))
+    void CreatePine(int player)
+    {
+        GameObject pine = Instantiate(Resources.Load("Pine"), Vector3.zero, Quaternion.identity) as GameObject;
+
+        if (player == 1) pine.GetComponent<SpriteRenderer>().color = Color.blue;
+        else pine.GetComponent<SpriteRenderer>().color = Color.red;
+
+        pick.Pine = pine.transform;
+    }
+
+    // Update is called once per frame
+    int _pinePLaced;
+    GameObject _currentBall;
+	void Update () {
+
+        if (currentPhase == phases.ROUNDSTART)
         {
-            mousePos = Input.mousePosition;
-            Debug.Log("MOUSE CLICK AT: " + mousePos.ToString());
+            _currentBall = createBall();
+            _pinePLaced = 0;
+            currentPhase = phases.PLACING;
+        }
+
+        if (currentPhase == phases.PLACING)
+        {
+            if (pick.Pine == null && _pinePLaced >= 4) currentPhase = phases.ACTION;
+            else if (pick.Pine == null)
+            {
+                CreatePine(_pinePLaced%2);
+                _pinePLaced++;
+            }
+        }
+
+        if (currentPhase == phases.ACTION)
+        {
+            _currentBall.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
 	}
 

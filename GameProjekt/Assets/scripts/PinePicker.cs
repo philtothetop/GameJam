@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.scripts
 {
-    class PinePicker : MonoBehaviour
+    public class PinePicker : MonoBehaviour
     {
         public Camera Cam;
         public Transform Pine;
