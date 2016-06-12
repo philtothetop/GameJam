@@ -14,8 +14,8 @@ public class PineState : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
+        
         breakPoints--;
-        Debug.Log("POINTS LEFT: " + breakPoints);
         if (breakPoints == 0)
         {
             Destroy(gameObject);
