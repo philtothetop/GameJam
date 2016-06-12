@@ -5,7 +5,6 @@ public class PineState : MonoBehaviour {
 
     // Use this for initialization
     public int breakPoints = 5;
-    int test;
 
     // Update is called once per frame
     float time;

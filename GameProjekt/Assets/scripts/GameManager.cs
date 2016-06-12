@@ -2,6 +2,8 @@
 using System.Collections;
 using Assets.scripts;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
     /*
@@ -29,18 +31,20 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    private GameObject createBall()
+    private HashSet<GameObject> createBall()
     {
-        // TODO create the ball in the borders
-        // y entre 90 et 100 => 95
-        // x 0 a 60
-
-        float xValue = Random.Range(1f, 59f);
-        GameObject ball = Instantiate(Resources.Load("Ball"), new Vector3(xValue, 95f), Quaternion.identity) as GameObject;
-        // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
-        ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
-        ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        return ball;
+        int randomBallValue = Random.Range(1, 8) % 3;
+        HashSet<GameObject> balls = new HashSet<GameObject>();
+        for (int i = 0; i < randomBallValue; i++) { 
+            float xValue = Random.Range(1f, 59f);
+            GameObject ball;
+            ball = Instantiate(Resources.Load("Ball"), new Vector3(xValue, 95f), Quaternion.identity) as GameObject;
+            // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
+            ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
+            ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            balls.Add(ball);
+        }
+        return balls;
 
     }
 
@@ -53,7 +57,7 @@ public class GameManager : MonoBehaviour {
 
         foreach (GameObject goal in goals)
         {
-            int player = Mathf.RoundToInt(Random.Range(1, 3));
+            int player = Random.Range(1, 3);
 
             if (player == 1)
             {
@@ -96,12 +100,12 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     int _pinePLaced;
-    GameObject _currentBall;
+    public static HashSet<GameObject> _currentBalls;
 	void Update () {
 
         if (currentPhase == phases.ROUNDSTART)
         {
-            _currentBall = createBall();
+            _currentBalls = createBall();
             _pinePLaced = 0;
             currentPhase = phases.PLACING;
         }
@@ -116,13 +120,15 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (currentPhase == phases.ACTION && _currentBall != null)
+        if (currentPhase == phases.ACTION && _currentBalls.Count > 0)
         {
-            _currentBall.GetComponent<Rigidbody2D>().gravityScale = 1;
-            _currentBall.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            foreach(GameObject ball in _currentBalls) { 
+                ball.GetComponent<Rigidbody2D>().gravityScale = 1;
+                ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            }
         }
 
-        if (_currentBall == null)
+        if (_currentBalls.Count == 0)
         {
             currentPhase = phases.ROUNDSTART;
         }

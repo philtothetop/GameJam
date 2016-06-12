@@ -10,6 +10,7 @@ namespace Assets.scripts
     {
         void OnTriggerEnter2D(Collider2D other)
         {
+            GameManager._currentBalls.Remove(other.gameObject);
             Destroy(other.gameObject);
         }
     }
