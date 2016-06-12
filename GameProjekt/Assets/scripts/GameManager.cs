@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.scripts;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
-
-
     /*
      * PHASE 1: START ROUND
      * PHASE 2: PLACE YOUR PINS
@@ -13,17 +12,17 @@ public class GameManager : MonoBehaviour {
 
     enum phases { ROUNDSTART, PLACING, ACTION }
     phases currentPhase;
-
     public static int Player1Points;
     public static int Player2Points;
+    public Text scoreText;
 
     public PinePicker pick;
 
     // Use this for initialization
     void Start ()
     {
-
         assignGoals();
+        updateScore();
         currentPhase = phases.ROUNDSTART;
 
         // place la balle a 90 et 100 dans les y et 0 a 30 dans les X
@@ -56,7 +55,6 @@ public class GameManager : MonoBehaviour {
 
             if (player == 1)
             {
-
                 if (playerOne >= 6)
                 {
                     player = 2;
@@ -79,15 +77,12 @@ public class GameManager : MonoBehaviour {
                     playerTwo++;
                 }
             }
-
-
             goal.GetComponent<GoalManager>().player = player;
             goal.GetComponent<GoalManager>().setColor();
         }
-
         Debug.Log("Player 1 : " + playerOne + ", Player 2 : " + playerTwo);
     }
-
+    
     void CreatePine(int player)
     {
         GameObject pine = Instantiate(Resources.Load("Pine"), Vector3.zero, Quaternion.identity) as GameObject;
@@ -124,8 +119,12 @@ public class GameManager : MonoBehaviour {
         {
             _currentBall.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
+        updateScore();
 	}
-
     
+    public void updateScore()
+    {
+        scoreText.text = "Player 1: " + Player1Points + " | Player 2: " + Player2Points;
+    }
 
 }

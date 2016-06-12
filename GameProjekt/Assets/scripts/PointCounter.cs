@@ -13,6 +13,7 @@ namespace Assets.scripts
         {
             if (manager.player == 1) GameManager.Player1Points++;
             else GameManager.Player2Points++;
+            
         }
     }
 }
