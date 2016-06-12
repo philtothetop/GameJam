@@ -21,10 +21,4 @@ public class PineState : MonoBehaviour {
             gameObject.SetActive(false);
         }
     }
-
-    void OnCollisionStay2D(Collision2D coll)
-    {
-        Debug.Log("stuck " + test);
-        test++;
-    }
 }
