@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour {
             goal.GetComponent<GoalManager>().player = player;
             goal.GetComponent<GoalManager>().setColor();
         }
-        Debug.Log("Player 1 : " + playerOne + ", Player 2 : " + playerTwo);
     }
     
     void CreatePine(int player)
@@ -115,10 +114,16 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (currentPhase == phases.ACTION)
+        if (currentPhase == phases.ACTION && _currentBall != null)
         {
             _currentBall.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
+
+        if (_currentBall == null)
+        {
+            currentPhase = phases.ROUNDSTART;
+        }
+
         updateScore();
 	}
     
