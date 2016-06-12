@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour {
         // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
         ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
         return ball;
+
     }
 
     // assigne 6 zones à chaque joueur
