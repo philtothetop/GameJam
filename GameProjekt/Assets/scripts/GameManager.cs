@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour {
         float xValue = Random.Range(1f, 60f);
         GameObject ball = Instantiate(Resources.Load("Ball"), new Vector3(xValue, 95f), Quaternion.identity) as GameObject;
         // THIS SHOULD BE SET TO 1 WHEN GOING TO ACTION PHASE
-        //ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
+        ball.GetComponent<Rigidbody2D>().gravityScale = 0 ;
 
     }
 
